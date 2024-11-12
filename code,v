@@ -1,0 +1,25 @@
+module decoder(
+    input [2:0] in,        // 3-bit input signal
+    output reg [7:0] out   // 8-bit output signal
+);
+
+    // Always block that runs whenever the input changes
+    always @(*) begin
+        // Default value for output (no active output)
+        out = 8'b00000000;
+        
+        // Check the value of the input and activate the corresponding output bit
+        case (in)
+            3'b000: out = 8'b00000001;  // Output 1 for input 000
+            3'b001: out = 8'b00000010;  // Output 2 for input 001
+            3'b010: out = 8'b00000100;  // Output 4 for input 010
+            3'b011: out = 8'b00001000;  // Output 8 for input 011
+            3'b100: out = 8'b00010000;  // Output 16 for input 100
+            3'b101: out = 8'b00100000;  // Output 32 for input 101
+            3'b110: out = 8'b01000000;  // Output 64 for input 110
+            3'b111: out = 8'b10000000;  // Output 128 for input 111
+            default: out = 8'b00000000; // Default: No active output
+        endcase
+    end
+
+endmodule
